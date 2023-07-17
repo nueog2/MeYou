@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>MeYou🐶</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'styles.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'footer.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="#!">Me & You 🐶</a>
+            <a class="nav-link" href="/mainpage/">main page</a>
+            <a class="nav-link" href="/company/">company info</a>
+            <a class="nav-link" href="/mysite/">product</a>
+            {% if user.is_authenticated %}
+            <a class="nav-link" href="{% url 'accounts:logout' %}">{{ user.username }} (logout)</a></li>
+            {% else %}
+            <a class="nav-link" href="{% url 'accounts:login' %}">login</a></li>
+            {% endif %}
+
+            <form class="d-flex">
+                <button class="btn btn-outline-dark" type="submit">
+                    <i class="bi-cart-fill me-1"></i>
+                    Cart
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                </button>
+            </form>
+            <a href="/mypage/">my page</a>
+            <a href="/login/">login</a>
+        </div>
+        </div>
+    </nav>
+
+    <br/>
+    <h1> 로그인 페이지입니다 .</h1>
+    <br/>
+
+    <!-- Footer-->
+    <div
+        style="width: 100wh; height: 500px; background-color: #212121; padding: 80px 8%; display: flex; justify-content: space-between; margin : 0 4%">
+        <div>
+            <p class="letterbold">Our Flagship Store</p>
+            <p class="letter"> 1234 Main Street<br />
+                Seoul, Korea<br />
+                123-456-7890<br />
+            </p>
+            <p class="letter">
+                View Stores List
+            </p>
+        </div>
+        <div>
+            <p class="letterbold">Shop</p>
+            <p class="letter">All Products<br />
+                Popular Products<br />
+                New Arrivals<br />
+            </p>
+        </div>
+        <div>
+            <p class="letterbold">Info</p>
+            <p class="letter">Our Story<br/>
+                Contact<br/>
+                Shipping & Returns<br/>
+                Store Policy<br/>
+                FAQ<br/>
+            </p>
+
+        </div>
+        <div>
+            <p class="letterbold">Me & You 🐶 SNS</p>
+            <div>
+                <img class="images" src="{% static 'images/instagram.png' %}" >
+                <img class="images" src="{% static 'images/facebook.png' %}" >
+                <img class="images" src="{% static 'images/youtube.png' %}" >
+            </div>
+        </div>
+        <!-- 너비랑 마진 줄때 style="width: 1.5vw; margin-right: 10px;" -->
+    </div>
+</body>
+
+</html>
+
+<!--    <h1>메인 페이지입니다.</h1>-->

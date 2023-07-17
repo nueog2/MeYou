@@ -1,0 +1,13 @@
+.letter {
+    color: white;
+}
+
+.letterbold{
+    color: white;
+    font-weight: bold;
+}
+
+.images {
+    width: 1.5vw;
+    margin-right: 10px;
+}
