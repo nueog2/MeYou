@@ -11,3 +11,16 @@
     width: 1.5vw;
     margin-right: 10px;
 }
+
+
+.comp_banner{
+    position: relative;
+}
+
+.comp_banner_text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50% );
+    color: white;
+}

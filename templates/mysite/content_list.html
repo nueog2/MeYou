@@ -24,7 +24,7 @@
             <a class="nav-link" href="/company/">company info</a>
             <a class="nav-link" href="/mysite/">product</a>
             {% if user.is_authenticated %}
-            <a class="nav-link" href="{% url 'accounts:logout' %}">{{ user.username }} (logout)</a></li>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">{{ user.username }}님 (logout)</a></li>
             {% else %}
             <a class="nav-link" href="{% url 'accounts:login' %}">login</a></li>
             {% endif %}
@@ -51,22 +51,25 @@
             </div>
         </div>
     </header>
-    <br />
-    <h1>product list </h1>
+
+    <!-- <h1>product list </h1> -->
+
+    <!--     
     {% if content_list %}
-    {% for content in content_list %}
-    <hr />
-    <h3><a href="{% url 'detail' content.id %}">{{ content.title }}</a></h3>
-    <h5>{{ content.content}}</h5>
-    {% endfor %}
+        {% for content in content_list %}
+            <hr />
+            <h3><a href="{% url 'detail' content.id %}">{{ content.title }}</a></h3>
+            <h5>{{ content.content}}</h5>
+        {% endfor %}
     {% else %}
-    <p>content 가 없습니다.</p>
+        <p>content 가 없습니다.</p>
     {% endif %}
-    <br />
+    <br /> -->
 
     <!-- Section-->
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
+            <h1>product list </h1>
             <a href="#" style="margin-right: 20px;">All Products</a>
             <a href="#" style="margin-right: 20px;">Popular Products</a>
             <a href="#" style="margin-right: 20px;">New Arrivals</a>
@@ -79,21 +82,29 @@
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Product image-->
+                        {% if content.photo %}
+                        <img class="card-img-top" src="{{ content.photo.url }}" alt="...">
+                        <br>
+                        {% else %}
                         <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        {% endif %}
+
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
 
                                 <h5 class="fw-bolder" href="{% url 'detail' content.id %}">{{ content.title }}</h5>
-                                <!-- Product Introduce --> <p>{{ content.content | truncatewords:30 }}</p>
+                                <!-- Product Introduce -->
+                                <p>{{ content.content | truncatewords:30 }}</p>
                                 <!-- Product price-->
                                 <p>{{ content.price }} ₩</p>
                             </div>
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><View class="btn btn-outline-dark mt-auto" href="{% url 'detail' content.id %}">View Detail</a>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                    href="{% url 'detail' content.id %}">View Detail</a>
                             </div>
                         </div>
                     </div>
@@ -105,38 +116,6 @@
                 <br />
 
 
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale
-                        </div>
-                        <!-- Product image-->
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder">Special Item</h5>
-                                <!-- Product reviews-->
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                </div>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$20.00</span>
-                                $18.00
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -192,4 +171,3 @@
 </body>
 
 </html>
-

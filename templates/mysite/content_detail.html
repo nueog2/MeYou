@@ -24,7 +24,7 @@
             <a class="nav-link" href="/company/">company info</a>
             <a class="nav-link" href="/mysite/">product</a>
             {% if user.is_authenticated %}
-            <a class="nav-link" href="{% url 'accounts:logout' %}">{{ user.username }} (logout)</a></li>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">{{ user.username }}님 (logout)</a></li>
             {% else %}
             <a class="nav-link" href="{% url 'accounts:login' %}">login</a></li>
             {% endif %}
@@ -47,7 +47,7 @@
     <!-- Section-->
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
-            <a href="#" style="margin-right: 20px;">All Products</a>
+            <a href="/mysite/" style="margin-right: 20px;">All Products</a>
             <a href="#" style="margin-right: 20px;">Popular Products</a>
             <a href="#" style="margin-right: 20px;">New Arrivals</a>
             <p></p>
@@ -55,11 +55,18 @@
             <section class="py-5">
                 <div class="container px-4 px-lg-5 my-5">
                     <div class="row gx-4 gx-lg-5 align-items-center">
+                        {% if content_list.photo %}
+                        <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{ content_list.photo.url }}"
+                                alt="..." /></div>
+                        <br>
+                        {% else %}
                         <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
                                 src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+                        {% endif %}
+
                         <div class="col-md-6">
                             <div class="small mb-1">>{{ content_list.title }}</div>
-                            <h1 class="display-5 fw-bolder">Squealing catnip ball</h1>
+                            <h1 class="display-5 fw-bolder">{{ content_list.title }}</h1>
                             <div class="fs-5 mb-5">
                                 <span class="text-decoration-line-through">$45.00</span>
                                 <span>$40.00</span>
@@ -78,21 +85,56 @@
                 </div>
             </section>
 
+            <section class="mb-5">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <form method="post" class="mb-4" action="{% url 'comment_create' content_list.id %}">
+                            {% csrf_token %}
+                            <textarea id="content" name="content" class="form-control" rows="3"
+                                placeholder="내용을 입력해주세요."></textarea>
+                            <button type="submit" class="btn btn-primary">submit</button>
+                        </form>
+                        {% for comment in content_list.comment_set.all %}
+                        <div class="d-flex">
+                            <div class="ms-3">
+                                <div class="fw-bold">{{ comment.author.username }} &nbsp&nbsp
+                                    {{ comment.create_date }}
+                                    {% if comment.create_date != comment.modify_date %}
+                                    / 수정일자: {{ comment.modify_date }}
+                                    {% endif %}
+                                    {% if request.user == comment.author %}
+                                    <a href="{% url 'comment_update' comment.id %}"
+                                        class="btn btn-sm btn-outlinesecondary">수정</a>
+                                    <a href="{% url 'comment_delete' comment.id %}"
+                                        class="btn btn-sm btn-outlinesecondary">삭제</a>
+                                    {% endif %}
+                                </div>
+                                {{ comment.content }}
+                            </div>
+                        </div>
+                        <br />
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+
             <!-- Related items section-->
             <section class="py-5 bg-light">
                 <div class="container px-4 px-lg-5 mt-5">
                     <h2 class="fw-bolder mb-4">Other products</h2>
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-        
+
                         <div class="col mb-5">
                             <div class="card h-100">
                                 <!-- Product image-->
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                                    alt="..." />
                                 <!-- Product details-->
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Product name-->
-        
+
                                         <h5 class="fw-bolder" href="/mysite/{{ content.id }}/">{{ content.title }}</h5>
                                         <!-- Product price-->
                                         $40.00 - $80.00
@@ -100,7 +142,9 @@
                                 </div>
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><View class="btn btn-outline-dark mt-auto" href="/mysite/{{ content.id }}">View Detail</a>
+                                    <div class="text-center">
+                                        <View class="btn btn-outline-dark mt-auto" href="/mysite/{{ content.id }}">View
+                                            Detail</a>
                                     </div>
                                 </div>
                             </div>

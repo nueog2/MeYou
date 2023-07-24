@@ -41,53 +41,65 @@
         </div>
         </div>
     </nav>
+ 
 
-    <br/>
-    <h1> 로그인 페이지입니다 .</h1>
-    <br/>
-
-    <!-- Footer-->
-    <div
-        style="width: 100wh; height: 500px; background-color: #212121; padding: 80px 8%; display: flex; justify-content: space-between; margin : 0 4%">
-        <div>
-            <p class="letterbold">Our Flagship Store</p>
-            <p class="letter"> 1234 Main Street<br />
-                Seoul, Korea<br />
-                123-456-7890<br />
-            </p>
-            <p class="letter">
-                View Stores List
-            </p>
+<!-- 댓글 업데이트 부분 -->
+<h2> update comment</h2>
+<section class="mb-5">
+    <div class="card bg-light">
+        <div class="card-body">
+            <form method="post" class="mb-4" action="{% url 'comment_update'
+comment.id %}">
+                {% csrf_token %}
+                <textarea id="content" name="content" class="form-control" rows="3">{{ form.content.value }}</textarea>
+                <button type="submit" class="btn btn-primary">submit</button>
+            </form>
         </div>
-        <div>
-            <p class="letterbold">Shop</p>
-            <p class="letter">All Products<br />
-                Popular Products<br />
-                New Arrivals<br />
-            </p>
-        </div>
-        <div>
-            <p class="letterbold">Info</p>
-            <p class="letter">Our Story<br/>
-                Contact<br/>
-                Shipping & Returns<br/>
-                Store Policy<br/>
-                FAQ<br/>
-            </p>
-
-        </div>
-        <div>
-            <p class="letterbold">Me & You 🐶 SNS</p>
-            <div>
-                <img class="images" src="{% static 'images/instagram.png' %}" >
-                <img class="images" src="{% static 'images/facebook.png' %}" >
-                <img class="images" src="{% static 'images/youtube.png' %}" >
-            </div>
-        </div>
-        <!-- 너비랑 마진 줄때 style="width: 1.5vw; margin-right: 10px;" -->
     </div>
+</section>
+
+ <!-- Footer-->
+ <div
+ style="width: 100wh; height: 500px; background-color: #212121; padding: 80px 8%; display: flex; justify-content: space-between; margin : 0 4%">
+ <div>
+     <p class="letterbold">Our Flagship Store</p>
+     <p class="letter"> 1234 Main Street<br />
+         Seoul, Korea<br />
+         123-456-7890<br />
+     </p>
+     <p class="letter">
+         View Stores List
+     </p>
+ </div>
+ <div>
+     <p class="letterbold">Shop</p>
+     <p class="letter">All Products<br />
+         Popular Products<br />
+         New Arrivals<br />
+     </p>
+ </div>
+ <div>
+     <p class="letterbold">Info</p>
+     <p class="letter">Our Story<br />
+         Contact<br />
+         Shipping & Returns<br />
+         Store Policy<br />
+         FAQ<br />
+     </p>
+
+ </div>
+ <div>
+     <p class="letterbold">Me & You 🐶 SNS</p>
+     <div>
+         <img class="images" href="#" src="{% static 'images/instagram.png' %}">
+         <img class="images" href="#" src="{% static 'images/facebook.png' %}">
+         <img class="images" href="#" src="{% static 'images/youtube.png' %}">
+     </div>
+ </div>
+ <!-- 너비랑 마진 줄때 style="width: 1.5vw; margin-right: 10px;" -->
+</div>
 </body>
 
 </html>
-
-<!--    <h1>메인 페이지입니다.</h1>-->
+<!-- 
+<h1> 댓글 작성 페이지입니다.</h1> -->

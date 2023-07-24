@@ -11,5 +11,5 @@ def mypage(request):
     return render(request, 'pages/mypage.html')
 
 def login(request):
-    return render(request, 'accounts/login.html')
+    return render(request, 'pages/loginpage.html')
 
