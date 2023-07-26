@@ -2,8 +2,6 @@
 {% load static %}
 <html lang="ko">
 
-<!-- 마이페이지 -->
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -17,9 +15,8 @@
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'footer.css' %}" rel="stylesheet" type="text/css">
 </head>
-<!-- 상단바 부분 -->
 
-<body>
+<!-- header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="#!">Me & You 🐶</a>
@@ -27,7 +24,7 @@
             <a class="nav-link" href="/company/">company info</a>
             <a class="nav-link" href="/mysite/">product</a>
             {% if user.is_authenticated %}
-            <a class="nav-link" href="{% url 'accounts:logout' %}">{{ user.username }} (logout)</a></li>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">{{ user.username }}님 (logout)</a></li>
             {% else %}
             <a class="nav-link" href="{% url 'accounts:login' %}">login</a></li>
             {% endif %}
@@ -44,69 +41,36 @@
         </div>
         </div>
     </nav>
+    <!-- body -->
 
-    <!-- 바디 부분 -->
-
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <br />
-            <h2> My page </h2>
-
-            {% if user.is_authenticated %}
-
-            <div style="display: flex; align-items: flex-end">
-                <img src="{% static 'images/user.png' %}" style="width: 10vw" />
-                <h5 style="padding-bottom: 20px; padding-left: 10px;">{{user.username }}님, 안녕하세요!<br />방문을 환영합니다!</h5>
-            </div>
-            <a class="nav-link" href="{% url 'accounts:logout' %}"><button class="btn btn-outline-dark nav-link">
-                로그아웃하기
-                <i class="bi-cart-fill me-1"></i>
-                <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
-            </button></a>
-            </li>
-            
-            <!-- style="padding: 100px 50px;" -->
-
-            <div class = "container">
-                <a class="nav-link" href="{% url 'cart' %}"><button class="btn btn-outline-dark nav-link"  >
-                    장바구니에 담은 상품 보러가기
-                    <i class="bi-cart-fill me-1"></i>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
-
-                <a class="nav-link" href="#"><button class="btn btn-outline-dark nav-link">
-                    문의 글 남기기
-                    <i class="bi-cart-fill me-1"></i>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
-                </button></a>
-
-                <a class="nav-link" href="#"><button class="btn btn-outline-dark nav-link">
-                    내 정보 수정하기 
-                    <i class="bi-cart-fill me-1"></i>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
-                </button></a>
-            </div>
-
-            {% else %}
-            <h4>현재 로그아웃 상태입니다. 로그인하거나 회원이 아니라면 회원가입을 진행해주세요</h4>
-            <a href="{% url 'accounts:login' %}"><button class="btn btn-outline-dark nav-link">
-                    로그인/회원가입
-                    <i class="bi-cart-fill me-1"></i>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
-                </button></a>
-            {% endif %}
-            <br />
-
-
-
-
-        </div>
-    </section>
-
-
-
-
-
-
+    <div class="container px-4 px-lg-5 mt-5">
+        <h1>Your Cart</h1>
+        {% if cart_items %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                        <tr>
+                            <td>{{ item.product }}</td>
+                            <td>${{ item.product.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                            
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Your cart is empty.</p>
+        {% endif %}
+    </div>
+    
 
 
     <!-- Footer-->
@@ -149,6 +113,13 @@
         </div>
         <!-- 너비랑 마진 줄때 style="width: 1.5vw; margin-right: 10px;" -->
     </div>
+</body>
+
+</html>
+
+<!--    <h1>메인 페이지입니다.</h1>-->
+
+
 </body>
 
 </html>

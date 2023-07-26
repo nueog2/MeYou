@@ -4,6 +4,7 @@ from django.urls import path, include
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+from .views import MainContentPopularView
 
 urlpatterns = [
     path("", views.index),
@@ -17,4 +18,9 @@ urlpatterns = [
     path(
         "comment/delete/<int:comment_id>/", views.comment_delete, name="comment_delete"
     ),
+    path('popular/<int:pk>/',views.MainContentPopularView.as_view(), name="popular"
+    ),
+    path('cart/', views.cart_view, name='cart'),
+    path('<int:content_id>/add_to_cart/', views.add_to_cart, name='add_to_cart'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

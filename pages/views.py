@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from mysite.models import Cart
+
 
 # Create your views here.
 def mainpage(request):

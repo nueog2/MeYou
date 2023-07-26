@@ -30,14 +30,14 @@
             {% endif %}
 
             <form class="d-flex">
-                <button class="btn btn-outline-dark" type="submit">
+                <a class="btn btn-outline-dark"  href="{% url 'cart' %}">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                </button>
+                </a>
             </form>
             <a href="/mypage/">my page</a>
-            <a href="/login/">login</a>
+            
         </div>
         </div>
     </nav>
@@ -71,7 +71,7 @@
         <div class="container px-4 px-lg-5 mt-5">
             <h1>product list </h1>
             <a href="#" style="margin-right: 20px;">All Products</a>
-            <a href="#" style="margin-right: 20px;">Popular Products</a>
+            <a href="/mysite/popular/" style="margin-right: 20px;">Popular Products</a>
             <a href="#" style="margin-right: 20px;">New Arrivals</a>
             <p></p>
 

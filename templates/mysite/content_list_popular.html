@@ -2,8 +2,6 @@
 {% load static %}
 <html lang="ko">
 
-<!-- 마이페이지 -->
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -17,7 +15,6 @@
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'footer.css' %}" rel="stylesheet" type="text/css">
 </head>
-<!-- 상단바 부분 -->
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,7 +24,7 @@
             <a class="nav-link" href="/company/">company info</a>
             <a class="nav-link" href="/mysite/">product</a>
             {% if user.is_authenticated %}
-            <a class="nav-link" href="{% url 'accounts:logout' %}">{{ user.username }} (logout)</a></li>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">{{ user.username }}님 (logout)</a></li>
             {% else %}
             <a class="nav-link" href="{% url 'accounts:login' %}">login</a></li>
             {% endif %}
@@ -45,68 +42,83 @@
         </div>
     </nav>
 
-    <!-- 바디 부분 -->
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">ALL Products</h1>
+                <p class="lead fw-normal text-white-50 mb-0">For your beloved Pet ! ♥️</p>
+            </div>
+        </div>
+    </header>
 
+    <!-- <h1>product list </h1> -->
+
+    <!--     
+    {% if content_list %}
+        {% for content in content_list %}
+            <hr />
+            <h3><a href="{% url 'detail' content.id %}">{{ content.title }}</a></h3>
+            <h5>{{ content.content}}</h5>
+        {% endfor %}
+    {% else %}
+        <p>content 가 없습니다.</p>
+    {% endif %}
+    <br /> -->
+
+    <!-- Section-->
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
-            <br />
-            <h2> My page </h2>
+            <h1>product list </h1>
+            <a href="#" style="margin-right: 20px;">All Products</a>
+            <a href="/mysite/popular/" style="margin-right: 20px;">Popular Products</a>
+            <a href="#" style="margin-right: 20px;">New Arrivals</a>
+            <p></p>
 
-            {% if user.is_authenticated %}
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% if popular_content_list %}
+                {% for content in popular_content_list %}
 
-            <div style="display: flex; align-items: flex-end">
-                <img src="{% static 'images/user.png' %}" style="width: 10vw" />
-                <h5 style="padding-bottom: 20px; padding-left: 10px;">{{user.username }}님, 안녕하세요!<br />방문을 환영합니다!</h5>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        {% if content.photo %}
+                        <img class="card-img-top" src="{{ content.photo.url }}" alt="...">
+                        <br>
+                        {% else %}
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        {% endif %}
+
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+
+                                <h5 class="fw-bolder" href="{% url 'detail' content.id %}">{{ content.title }}</h5>
+                                <!-- Product Introduce -->
+                                <p>{{ content.content | truncatewords:30 }}</p>
+                                <!-- Product price-->
+                                <p>{{ content.price }} ₩</p>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                    href="{% url 'detail' content.id %}">View Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>content 가 없습니다.</p>
+                {% endif %}
+                <br />
+
+
             </div>
-            <a class="nav-link" href="{% url 'accounts:logout' %}"><button class="btn btn-outline-dark nav-link">
-                로그아웃하기
-                <i class="bi-cart-fill me-1"></i>
-                <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
-            </button></a>
-            </li>
-            
-            <!-- style="padding: 100px 50px;" -->
-
-            <div class = "container">
-                <a class="nav-link" href="{% url 'cart' %}"><button class="btn btn-outline-dark nav-link"  >
-                    장바구니에 담은 상품 보러가기
-                    <i class="bi-cart-fill me-1"></i>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
-
-                <a class="nav-link" href="#"><button class="btn btn-outline-dark nav-link">
-                    문의 글 남기기
-                    <i class="bi-cart-fill me-1"></i>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
-                </button></a>
-
-                <a class="nav-link" href="#"><button class="btn btn-outline-dark nav-link">
-                    내 정보 수정하기 
-                    <i class="bi-cart-fill me-1"></i>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
-                </button></a>
-            </div>
-
-            {% else %}
-            <h4>현재 로그아웃 상태입니다. 로그인하거나 회원이 아니라면 회원가입을 진행해주세요</h4>
-            <a href="{% url 'accounts:login' %}"><button class="btn btn-outline-dark nav-link">
-                    로그인/회원가입
-                    <i class="bi-cart-fill me-1"></i>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
-                </button></a>
-            {% endif %}
-            <br />
-
-
-
-
         </div>
     </section>
-
-
-
-
-
-
 
 
     <!-- Footer-->
@@ -149,6 +161,13 @@
         </div>
         <!-- 너비랑 마진 줄때 style="width: 1.5vw; margin-right: 10px;" -->
     </div>
+</body>
+
+</html>
+
+<!--    <h1>메인 페이지입니다.</h1>-->
+
+
 </body>
 
 </html>

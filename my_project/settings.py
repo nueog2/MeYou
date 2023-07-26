@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "mysite",
     "pages",
     'accounts.apps.AccountsConfig',
+    'hitcount',
 ]
 
 MIDDLEWARE = [
