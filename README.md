@@ -25,4 +25,5 @@ Database : db.sqlite3
 - 장바구니 담기, 마이페이지 조회 ( 담은 상품 ) 기능
 
 ### ➡️ 전체 Flow
-![image](https://github.com/user-attachments/assets/8421a134-d3bb-4d7c-8434-5b55b8a2bed5)
+![image]()
+<img src="https://github.com/user-attachments/assets/8421a134-d3bb-4d7c-8434-5b55b8a2bed5  width="200" height="400"/>
